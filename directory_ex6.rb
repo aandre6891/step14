@@ -11,12 +11,12 @@ def try_load_students
 end
 
 def load_students(filename)
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  open("students.csv", "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      @students << {name: name, cohort: cohort.to_sym}
+    end
   end
-  file.close
 end
 
 def save_students
