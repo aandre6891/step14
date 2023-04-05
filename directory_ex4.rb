@@ -1,3 +1,13 @@
+def check_choice(selection)
+  choices = ["1", "2", "3", "4", "9"]
+  if choices.include?(selection)
+    process(selection) 
+  else
+    puts "Command not valid, try again"
+    interactive_menu
+  end
+end
+
 def try_load_students
   filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
@@ -51,7 +61,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    check_choice(gets.chomp)
   end
 end
 
