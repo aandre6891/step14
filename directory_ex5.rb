@@ -21,7 +21,8 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  puts "what name would you like to save to the file?"
+  file = File.open("#{gets.chomp}.csv", "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -58,7 +59,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
+  puts "3. Save the list to a .csv file"
   puts "4. Load the list from students.csv"
   puts "9. Exit" # 9 because we'll be adding more items
 end
