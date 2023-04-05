@@ -1,8 +1,8 @@
-def try_load_students
+def try_load_student_file
   filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exist?(filename) # if it exists
-    load_students(filename)
+    load_student_file(filename)
      puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
@@ -10,7 +10,7 @@ def try_load_students
   end
 end
 
-def load_students
+def load_student_file
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
@@ -71,7 +71,7 @@ def process(selection)
     "1" => method(:input_students),
     "2" => method(:show_students),
     "3" => method(:save_students),
-    "4" => method(:load_students),
+    "4" => method(:load_student_file),
     "9" => method(:exit)
   }
   options[selection] ? options[selection].call : puts("I don't know what you meant, try again")
@@ -92,5 +92,5 @@ def print_footer
   puts "Overall, we have #{@students.count} great students"
 end
 
-try_load_students
+try_load_student_file
 interactive_menu
