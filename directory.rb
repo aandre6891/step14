@@ -1,39 +1,20 @@
-def add_student(name, cohort)
-  @students << {name: name, cohort: cohort}
-end
-
 def try_load_students
   filename = ARGV.first # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exist?(filename) # if it exists
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     puts "Sorry, #{filename} doesn't exist."
     exit # quit the program
   end
 end
 
-def input_students(selection)
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # get the first name
-  name = gets.chomp
-  # while the name is not empty, repeat this code
-  while !name.empty? do
-    # add the student hash to the array
-    add_student(name, :november)
-    puts "Now we have #{@students.count} students"
-    # get another name from the user
-    name = gets.chomp
-  end
-end
-
-def load_students(selection)
+def load_students
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-  add_student(name, cohort.to_sym)
+    @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
@@ -51,6 +32,21 @@ def save_students
 end
 
 @students = [] # array accessible in all methods
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  # get the first name
+  name = gets.chomp
+  # while the name is not empty, repeat this code
+  while !name.empty? do
+    # add the student hash to the array
+    @students << {name: name, cohort: :november}
+    puts "Now we have #{@students.count} students"
+    # get another name from the user
+    name = gets.chomp
+  end
+end
 
 def interactive_menu
   loop do
@@ -76,13 +72,13 @@ end
 def process(selection)
   case selection
   when "1"
-    input_students("1")
+    input_students
   when "2"
     show_students
   when "3"
     save_students
   when "4"
-    load_students("4")
+    load_students
   when "9"
     exit # this will cause the program to terminate
   else
