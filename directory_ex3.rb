@@ -67,20 +67,14 @@ def show_students
 end
 
 def process(selection)
-  case selection
-  when "1"
-    input_students
-  when "2"
-    show_students
-  when "3"
-    save_students
-  when "4"
-    load_students
-  when "9"
-    exit # this will cause the program to terminate
-  else
-    puts "I don't know what you meant, try again"
-  end
+  options = {
+    "1" => method(:input_students),
+    "2" => method(:show_students),
+    "3" => method(:save_students),
+    "4" => method(:load_students),
+    "9" => method(:exit)
+  }
+  options[selection] ? options[selection].call : puts("I don't know what you meant, try again")
 end
 
 def print_header
