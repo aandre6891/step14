@@ -2,7 +2,7 @@ def try_load_students
   filename = "students.csv" # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exist?(filename) # if it exists
-    load_students(filename)
+    load_students
     puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
     save_students
@@ -10,13 +10,13 @@ def try_load_students
   end
 end
 
-def load_students(filename)
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
+def load_students
+  require 'csv'
+  CSV.foreach("/Users/andyruggieri/Projects/step14/students.csv") do |row|
+    name = row[0]
+    cohort = row[1]
     @students << {name: name, cohort: cohort.to_sym}
   end
-  file.close
 end
 
 def save_students
