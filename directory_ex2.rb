@@ -1,19 +1,19 @@
 def try_load_students
-  filename = ARGV.first # first argument from the command line
+  filename = "students.csv" # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
   if File.exist?(filename) # if it exists
     load_students(filename)
-     puts "Loaded #{@students.count} from #{filename}"
+    puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit # quit the program
+    save_students
+    puts "#{filename} didn't exist, we have created a blank one."
   end
 end
 
-def load_students
+def load_students(filename)
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+    name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
