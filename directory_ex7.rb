@@ -15,20 +15,17 @@ def load_students
   CSV.foreach("/Users/andyruggieri/Projects/step14/students.csv") do |row|
     name = row[0]
     cohort = row[1]
-    @students << {name: name, cohort: cohort.to_sym}
+    @students << {name: name, cohort: cohort}
   end
 end
 
 def save_students
-  # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  require 'csv'
+  CSV.open("/Users/andyruggieri/Projects/step14/students.csv", "wb") do |csv|
+    @students.each do |student|
+      csv << [student[:name], student[:cohort]]
+    end
   end
-  file.close
 end
 
 @students = [] # array accessible in all methods
