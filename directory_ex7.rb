@@ -1,3 +1,5 @@
+require 'csv'
+
 def try_load_students
   filename = "students.csv" # first argument from the command line
   return if filename.nil? # get out of the method if it isn't given
@@ -11,7 +13,6 @@ def try_load_students
 end
 
 def load_students
-  require 'csv'
   CSV.foreach("/Users/andyruggieri/Projects/step14/students.csv") do |row|
     name = row[0]
     cohort = row[1]
@@ -20,7 +21,6 @@ def load_students
 end
 
 def save_students
-  require 'csv'
   CSV.open("/Users/andyruggieri/Projects/step14/students.csv", "wb") do |csv|
     @students.each do |student|
       csv << [student[:name], student[:cohort]]
